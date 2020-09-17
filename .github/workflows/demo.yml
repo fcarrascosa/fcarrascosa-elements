@@ -1,0 +1,30 @@
+name: Release - Demo
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: npm ci
+      - name: Building Storybook
+        run: npm run storybook:build --if-present
+      - name: Commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "CI/CD: GitHub Action"
+          git add .
+          git commit -m "chore(demo): generate storybook"
+      - name: Push changes to demo branch
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: demo
+          force: true
+
+

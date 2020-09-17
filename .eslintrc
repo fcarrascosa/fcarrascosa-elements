@@ -1,0 +1,16 @@
+{
+  "extends": ["@open-wc/eslint-config", "eslint-config-prettier"],
+  "overrides": [
+    {
+      "files": ["*.spec.js"],
+      "globals": {
+        "expect": false
+      }
+    }
+  ],
+  "plugins": ["sort-keys-fix"],
+  "rules": {
+    "sort-imports": ["warn"],
+    "sort-keys-fix/sort-keys-fix": "warn"
+  }
+}

@@ -1,0 +1,12 @@
+# IDE Stuff
+.idea/
+
+# NPM Stuff
+node_modules/
+npm-debug.log
+
+# TESTING Stuff
+coverage
+
+# LERNA Stuff
+lerna-debug.log
