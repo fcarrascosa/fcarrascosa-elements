@@ -1,7 +1,7 @@
 name: Branch - Verify
 on:
   push:
-    branches-ignore: [main, develop, release/**]
+    branches-ignore: [main, develop, release/**, demo]
 jobs:
   build:
     runs-on: ubuntu-latest
