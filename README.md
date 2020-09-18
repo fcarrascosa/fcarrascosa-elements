@@ -2,33 +2,37 @@
 
 ```js script
 export default {
-    title: 'Info/@fcarrascosa elements'
-}
+  title: 'Info/@fcarrascosa elements',
+};
 ```
 
 ## DISCLAIMER
-This is an experimental project in which I'm exploring the **monorepo**, **CI/CD** via __[Github Actions][2]__ and other cool stuff, such as __[GitHub Pages][3]__.
+
+This is an experimental project in which I'm exploring the **monorepo**, **CI/CD** via **[Github Actions][2]** and other cool stuff, such as **[GitHub Pages][3]**.
 
 The intention for this project is just for personal amusement, and it is not intended to be actively maintained (for now).
 
 Said that, any contribution is welcome and appreciated.
 
 ## Demo
+
 There's this nice [storybook demo][8] you can check.
 
 ## Installing
 
 ### Prerequisites
+
 This project relies on the the `npm` registry, so you might want to install either [`npm`][4] or [`yarn`][5]
 
 ### Installation process
+
 First thing you want to do to install this is cloning it into your local machine:
 
 ```bash
 git clone https://github.com/fcarrascosa/fcarrascosa-elements.git
 ```
 
-This repo uses [`lerna`][1] as __monorepo__ manager, so after doing that, to install the dependencies you should run:
+This repo uses [`lerna`][1] as **monorepo** manager, so after doing that, to install the dependencies you should run:
 
 ```bash
 npx lerna bootstrap
@@ -41,14 +45,17 @@ npm install
 ```
 
 ## How to contribute
+
 **INFO:** This section is to be moved to a `CONTRIBUTING.md` file.
 
 I love feedback. I think it's crucial to become better at what you do.
 
 ### For questions or feedback
+
 You can open a `GitHub issue` addressing your question or feedback. Issues templates are to be added, but will be there. In the meantime, you can ask your question and detail it as much as possible and I will try to give you the best answer I can find.
 
 ### For improvements
+
 You can open a `Pull Request` to this repo addressing what you are to improve.
 After you installed the project and you have set it up, as stated on the [Installing](#Installing) section you should create a `fix` branch.
 
@@ -71,6 +78,7 @@ git push -u fork fix/myAwesomeFix
 After doing so, you can create a **pull request**.
 
 ## Contact
+
 Feel free to open a github issue for feedback or questions about this project.
 
 You can also contact me via **[Twitter][7]**.

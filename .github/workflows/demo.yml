@@ -11,7 +11,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - run: npm ci
+      - name: Install Project Dependencies
+        run: npm ci
       - name: Building Storybook
         run: npm run storybook:build --if-present
       - name: Commit files
@@ -26,5 +27,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: demo
           force: true
-
-
