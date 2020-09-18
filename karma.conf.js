@@ -39,6 +39,7 @@ module.exports = config =>
       coverage: true,
       nodeResolve: true,
     },
+    failOnEmptyTestSuite: false,
     files: [
       {
         pattern: config.grep || 'packages/**/*spec.js',
