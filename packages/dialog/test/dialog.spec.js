@@ -1,7 +1,6 @@
 import '../index.js';
 import { fixture, html } from '@open-wc/testing';
 import FcarrascosaDialog from '../src/FcarrascosaDialog.js';
-import {executeAndWaitForVisibilityChange} from "../../../test/utils.js";
 
 describe('@fcarrascosa/dialog element', () => {
   let element;
@@ -35,7 +34,6 @@ describe('@fcarrascosa/dialog element', () => {
         });
 
         describe('when trigger is clicked', () => {
-
           it('should open the dialog', async () => {
             element.querySelector('[slot="trigger"]').click();
             await Promise.resolve();
