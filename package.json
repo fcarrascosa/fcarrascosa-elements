@@ -27,6 +27,7 @@
     "test": "karma start",
     "test:watch": "karma start --auto-watch --no-single-run",
     "storybook": "start-storybook",
-    "storybook:build": "build-storybook -o docs"
+    "storybook:build": "build-storybook -o docs",
+    "lerna:version": "npm run lerna-version --conventional-commits"
   }
 }
