@@ -1,7 +1,7 @@
 module.exports = {
   stories: [
     '../README.md',
-    '../stories/*.stories.{js,md,mdx}',
+    '../stories/**/*.stories.{js,md,mdx}',
     '../packages/**/stories/**/*.stories.{js,md,mdx}',
   ],
   addons: [

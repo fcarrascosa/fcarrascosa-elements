@@ -5,6 +5,9 @@
       "files": ["*.spec.js"],
       "globals": {
         "expect": false
+      },
+      "rules": {
+        "import/no-extraneous-dependencies": "off"
       }
     }
   ],

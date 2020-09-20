@@ -1,0 +1,32 @@
+{
+  "name": "dialog",
+  "version": "0.0.0",
+  "description": "A simple dialog element that accepts any kind of content as slot",
+  "author": "Fernando Carrascosa <fcarrascosa@fcarrascosa.es>",
+  "homepage": "https://github.com/fcarrascosa/fcarrascosa-elements#readme",
+  "license": "ISC",
+  "main": "index.js",
+  "directories": {
+    "src": "src",
+    "test": "test",
+    "demo": "stories"
+  },
+  "files": [
+    "*.js",
+    "src",
+    "stories"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fcarrascosa/fcarrascosa-elements.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/fcarrascosa/fcarrascosa-elements/issues"
+  },
+  "dependencies": {
+    "lit-element": "^2.4.0"
+  }
+}
