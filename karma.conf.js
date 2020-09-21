@@ -42,7 +42,7 @@ module.exports = config =>
     failOnEmptyTestSuite: false,
     files: [
       {
-        pattern: config.grep || 'packages/**/test/*spec.js',
+        pattern: config.grep || 'packages/**/test/*.spec.js',
         type: 'module',
       },
     ],
