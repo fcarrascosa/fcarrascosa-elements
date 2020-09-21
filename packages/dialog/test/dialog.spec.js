@@ -1,6 +1,9 @@
 import '../index.js';
 import { fixture, html } from '@open-wc/testing';
 import FcarrascosaDialog from '../src/FcarrascosaDialog.js';
+import { getElementTransitionProps } from '../../../test/utils/transition.js';
+import { getElementAndChildrenTransitionProps, getElementChildNodes } from "../../../test/utils/transition.js";
+import { waitForTransitionEnd } from "../../../test/utils/transition";
 
 describe('@fcarrascosa/dialog element', () => {
   let element;
@@ -35,27 +38,16 @@ describe('@fcarrascosa/dialog element', () => {
 
         describe('when trigger is clicked', () => {
           beforeEach(async () => {
-            /* TODO:  This setup should be generalizable, don't know why this does not work on beforeEach */
-            /* await new Promise(resolve => {
-              const resolver = e => {
-                if (e.propertyName === 'visibility') {
-                  element.removeEventListener('transitionend', resolver);
-                  resolve();
-                }
-              };
-              element.addEventListener('transitionend', resolver);
-              element.querySelector('[slot="trigger"]').click();
-            }); */
             element.querySelector('[slot="trigger"]').click();
-            await new Promise(resolve => setTimeout(resolve, 600));
+            await waitForTransitionEnd(element);
           });
 
-          it('should open the dialog', async () => {
+          it('should open the dialog', () => {
             expect(element.open).to.be.true;
             expect(element).to.have.attribute('open');
           });
 
-          it('should display the content', async () => {
+          it('should display the content', () => {
             const content = element.querySelector('[slot="content"]');
             expect(content).to.be.visible;
           });
@@ -80,35 +72,22 @@ describe('@fcarrascosa/dialog element', () => {
         });
 
         describe('when backdrop is clicked', () => {
-          beforeEach(async () => {
-            /* TODO:  This setup should be generalizable, don't know why this does not work on beforeEach */
-            /* await new Promise(resolve => {
-              const resolver = e => {
-                if (e.propertyName === 'visibility') {
-                  element.removeEventListener('transitionend', resolver);
-                  resolve();
-                }
-              };
-              element.addEventListener('transition-ended', resolver);
-              element.shadowRoot.querySelector('.dialog-backdrop').click();
-            }); */
-
+          beforeEach (async () => {
             element.shadowRoot.querySelector('.dialog-backdrop').click();
-            await new Promise(resolve => setTimeout(resolve, 600));
+            await waitForTransitionEnd(element);
           });
 
-          it('should close itself', async () => {
+          it('should close itself', () => {
             expect(element.open).to.be.false;
             expect(element).to.not.have.attribute('open');
           });
 
-          it('should hide content', async () => {
+          it('should hide content', () => {
             const content = element.querySelector('[slot="content"]');
             expect(content).to.not.be.visible;
           });
 
-          it('should release body overflow', async () => {
-            await Promise.resolve();
+          it('should release body overflow', () => {
             expect(document.body.style.overflow).to.be.equal('');
           });
         });
