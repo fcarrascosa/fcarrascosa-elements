@@ -1,9 +1,7 @@
 import '../index.js';
 import { fixture, html } from '@open-wc/testing';
 import FcarrascosaDialog from '../src/FcarrascosaDialog.js';
-import { getElementTransitionProps } from '../../../test/utils/transition.js';
-import { getElementAndChildrenTransitionProps, getElementChildNodes } from "../../../test/utils/transition.js";
-import { waitForTransitionEnd } from "../../../test/utils/transition";
+import { waitForTransitionEnd } from '../../../test/utils/transition.js';
 
 describe('@fcarrascosa/dialog element', () => {
   let element;
@@ -72,7 +70,7 @@ describe('@fcarrascosa/dialog element', () => {
         });
 
         describe('when backdrop is clicked', () => {
-          beforeEach (async () => {
+          beforeEach(async () => {
             element.shadowRoot.querySelector('.dialog-backdrop').click();
             await waitForTransitionEnd(element);
           });
