@@ -13,6 +13,21 @@ export default class FcarrascosaDialog extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
+    this.addEventListener('transitionend', this.handleTransitionEnd)
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.removeEventListener('transitionend', this.handleTransitionEnd)
+  }
+
+
+  firstUpdated(_changedProperties) {
+    super.firstUpdated(_changedProperties);
+    const slottedContent = this.querySelector('[slot="content"]');
+    slottedContent.setAttribute('aria-modal', true);
+    slottedContent.setAttribute('tabindex', -1)
+    slottedContent.setAttribute('role', 'dialog');
   }
 
   updated(changedProps) {
@@ -39,6 +54,14 @@ export default class FcarrascosaDialog extends LitElement {
   handleKeyUp(e) {
     if (e.key === 'Escape') {
       this.toggleOpen();
+    }
+  }
+
+  handleTransitionEnd(e) {
+    if (e.propertyName === 'visibility') {
+      const slottedContent = this.querySelector('[slot="content"]');
+      const slottedTrigger = this.querySelector('[slot="trigger"]');
+      (this.open ? slottedContent : slottedTrigger).focus();
     }
   }
 
@@ -83,6 +106,10 @@ export default class FcarrascosaDialog extends LitElement {
         opacity: 1;
         transform: translateY(50vh);
         z-index: 200;
+      }
+      
+      ::slotted([slot='content']:focus) {
+        outline: none;
       }
 
       :host([open]) .dialog,

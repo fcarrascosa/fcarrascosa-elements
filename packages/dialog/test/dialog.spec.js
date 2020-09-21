@@ -46,6 +46,11 @@ describe('@fcarrascosa/dialog element', () => {
             expect(element).to.have.attribute('open');
           });
 
+          it('should focus the dialog', () => {
+            const slottedContent = element.querySelector('[slot="content"]');
+            expect(document.activeElement).to.be.equal(slottedContent);
+          });
+
           it('should display the content', () => {
             const content = element.querySelector('[slot="content"]');
             expect(content).to.be.visible;
@@ -74,6 +79,11 @@ describe('@fcarrascosa/dialog element', () => {
           beforeEach(async () => {
             element.shadowRoot.querySelector('.dialog-backdrop').click();
             await waitForTransitionEnd(element);
+          });
+
+          it('should focus the trigger', () => {
+            const slottedTrigger = element.querySelector('[slot="trigger"]');
+            expect(document.activeElement).to.be.equal(slottedTrigger);
           });
 
           it('should close itself', () => {
