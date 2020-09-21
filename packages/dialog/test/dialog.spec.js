@@ -1,4 +1,5 @@
 import '../index.js';
+import { createSandbox } from 'sinon';
 import { fixture, html } from '@open-wc/testing';
 import FcarrascosaDialog from '../src/FcarrascosaDialog.js';
 import { waitForTransitionEnd } from '../../../test/utils/transition.js';
@@ -60,7 +61,7 @@ describe('@fcarrascosa/dialog element', () => {
           </fcarrascosa-dialog>`);
         });
 
-        it('should not display the content', () => {
+        it('should display the content', () => {
           const content = element.querySelector('[slot="content"]');
           expect(content).to.be.visible;
         });
@@ -87,6 +88,46 @@ describe('@fcarrascosa/dialog element', () => {
 
           it('should release body overflow', () => {
             expect(document.body.style.overflow).to.be.equal('');
+          });
+        });
+        describe('when esc key is pressed', () => {
+          beforeEach(async () => {
+            const escKeyPressed = new KeyboardEvent('keyup', {
+              key: 'Escape',
+            });
+            document.dispatchEvent(escKeyPressed);
+            await waitForTransitionEnd(element);
+          });
+
+          it('should close itself', () => {
+            expect(element.open).to.be.false;
+            expect(element).to.not.have.attribute('open');
+          });
+
+          it('should hide content', () => {
+            const content = element.querySelector('[slot="content"]');
+            expect(content).to.not.be.visible;
+          });
+
+          it('should release body overflow', () => {
+            expect(document.body.style.overflow).to.be.equal('');
+          });
+        });
+        describe('when a key that is not esc is pressed', () => {
+          beforeEach(async () => {
+            const escKeyPressed = new KeyboardEvent('keyup', {
+              key: 'Space',
+            });
+            document.dispatchEvent(escKeyPressed);
+            await waitForTransitionEnd(element);
+          });
+          it('should display the content', () => {
+            const content = element.querySelector('[slot="content"]');
+            expect(content).to.be.visible;
+          });
+
+          it('should block body overflow', () => {
+            expect(document.body.style.overflow).to.be.equal('hidden');
           });
         });
       });
@@ -117,6 +158,41 @@ describe('@fcarrascosa/dialog element', () => {
         it('should set open property to false', () => {
           element.toggleOpen();
           expect(element.open).to.be.false;
+        });
+      });
+    });
+
+    describe('handleKeyUp method', () => {
+      let sandbox;
+
+      beforeEach(() => {
+        sandbox = createSandbox();
+        sandbox.stub(element, 'toggleOpen');
+      });
+
+      afterEach(() => {
+        sandbox.restore();
+      });
+
+      describe('when esc key keyupevent is passed', () => {
+        beforeEach(() => {
+          const keyEvent = new KeyboardEvent('keyup', { key: 'Escape' });
+          element.handleKeyUp(keyEvent);
+        });
+
+        it('should call toggleOpen method', () => {
+          expect(element.toggleOpen).to.have.been.calledOnce;
+        });
+      });
+
+      describe('when NON esc key keyupevent is passed', () => {
+        beforeEach(() => {
+          const keyEvent = new KeyboardEvent('keyup', { key: 'Space' });
+          element.handleKeyUp(keyEvent);
+        });
+
+        it('should call toggleOpen method', () => {
+          expect(element.toggleOpen).to.not.have.been.calledOnce;
         });
       });
     });

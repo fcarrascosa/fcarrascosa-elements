@@ -16,8 +16,19 @@ export const main = () => {
 
   return html`
     <fcarrascosa-dialog ?open=${open}>
-      <button slot="trigger">HOLA</button>
-      <div slot="content">PENE DOBLADO</div>
+      <button slot="trigger">Click me to open a dialog</button>
+      <div slot="content">
+        <header>
+          <h2>Hey! I'm a Dialog</h2>
+        </header>
+        <div class="body">
+          <p>You can put pretty much whatever you want inside me.</p>
+          <p>To make me dissapear, click outside me or press Esc key.</p>
+        </div>
+        <footer>
+          <small>Made with <3 by Fernando Carrascosa</small>
+        </footer>
+      </div>
     </fcarrascosa-dialog>
   `;
 };

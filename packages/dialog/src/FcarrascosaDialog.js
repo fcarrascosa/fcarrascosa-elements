@@ -4,6 +4,7 @@ export default class FcarrascosaDialog extends LitElement {
   constructor() {
     super();
     this.open = false;
+    this.keyUpEventHandler = this.handleKeyUp.bind(this);
   }
 
   static get is() {
@@ -16,7 +17,14 @@ export default class FcarrascosaDialog extends LitElement {
 
   updated(changedProps) {
     super.updated(changedProps);
-    document.body.style.overflow = this.open ? 'hidden' : null;
+
+    if (this.open) {
+      document.body.style.overflow = 'hidden';
+      document.addEventListener('keyup', this.keyUpEventHandler);
+    } else {
+      document.body.style.overflow = null;
+      document.removeEventListener('keyup', this.keyUpEventHandler);
+    }
   }
 
   static get properties() {
@@ -26,6 +34,12 @@ export default class FcarrascosaDialog extends LitElement {
         type: Boolean,
       },
     };
+  }
+
+  handleKeyUp(e) {
+    if (e.key === 'Escape') {
+      this.toggleOpen();
+    }
   }
 
   toggleOpen() {
@@ -65,6 +79,7 @@ export default class FcarrascosaDialog extends LitElement {
       ::slotted([slot='content']) {
         background: #fff;
         border-radius: 3px;
+        overflow: hidden;
         opacity: 1;
         transform: translateY(50vh);
         z-index: 200;
