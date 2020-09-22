@@ -11,6 +11,8 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-sort-keys-fix": "^1.1.1",
     "karma-chai": "^0.1.0",
+    "karma-chai-dom": "^1.1.0",
+    "karma-sinon-chai": "^2.0.2",
     "lerna": "^3.22.1",
     "prettier": "^2.1.2",
     "sinon": "^9.0.3"
@@ -26,6 +28,7 @@
     "test": "karma start",
     "test:watch": "karma start --auto-watch --no-single-run",
     "storybook": "start-storybook",
-    "storybook:build": "build-storybook -o docs"
+    "storybook:build": "build-storybook -o docs",
+    "lerna:version": "lerna version --conventional-commits"
   }
 }

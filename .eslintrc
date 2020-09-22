@@ -5,12 +5,14 @@
       "files": ["*.spec.js"],
       "globals": {
         "expect": false
+      },
+      "rules": {
+        "import/no-extraneous-dependencies": "off"
       }
     }
   ],
   "plugins": ["sort-keys-fix"],
   "rules": {
-    "sort-imports": ["warn"],
     "sort-keys-fix/sort-keys-fix": "warn"
   }
 }

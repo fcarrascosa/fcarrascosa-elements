@@ -42,11 +42,18 @@ module.exports = config =>
     failOnEmptyTestSuite: false,
     files: [
       {
-        pattern: config.grep || 'packages/**/*spec.js',
+        pattern: config.grep || 'packages/**/test/*.spec.js',
         type: 'module',
       },
     ],
-    frameworks: ['esm', 'mocha', 'chai', 'source-map-support'],
+    frameworks: [
+      'esm',
+      'mocha',
+      'chai-dom',
+      'sinon-chai',
+      'chai',
+      'source-map-support',
+    ],
     logLevel: config.LOG_INFO,
     mochaReporter: {
       showDiff: true,
@@ -56,6 +63,8 @@ module.exports = config =>
       '@open-wc/karma-esm',
       'karma-mocha',
       'karma-chai',
+      'karma-sinon-chai',
+      'karma-chai-dom',
       'karma-mocha-reporter',
       'karma-source-map-support',
       'karma-coverage',
