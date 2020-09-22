@@ -1,6 +1,6 @@
 import { LitElement, css, html } from 'lit-element';
 
-export default class FcarrascosaDialog extends LitElement {
+export class FcarrascosaDialog extends LitElement {
   constructor() {
     super();
     this.open = false;

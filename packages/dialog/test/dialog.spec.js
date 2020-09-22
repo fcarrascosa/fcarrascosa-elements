@@ -1,7 +1,7 @@
-import '../index.js';
+import '../fcarrascosa-dialog.js';
 import { createSandbox } from 'sinon';
 import { fixture, html } from '@open-wc/testing';
-import FcarrascosaDialog from '../src/FcarrascosaDialog.js';
+import { FcarrascosaDialog } from '../src/FcarrascosaDialog.js';
 import { waitForTransitionEnd } from '../../../test/utils/transition.js';
 
 describe('@fcarrascosa/dialog element', () => {
