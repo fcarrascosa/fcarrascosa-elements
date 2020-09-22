@@ -73,7 +73,8 @@ export default class FcarrascosaDialog extends LitElement {
       .dialog,
       ::slotted([slot='content']) {
         opacity: 0;
-        transition: all 0.5s ease-in-out;
+        transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out,
+          transform 0.5s ease-in-out;
         visibility: hidden;
       }
 

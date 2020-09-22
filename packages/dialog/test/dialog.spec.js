@@ -38,7 +38,7 @@ describe('@fcarrascosa/dialog element', () => {
         describe('when trigger is clicked', () => {
           beforeEach(async () => {
             element.querySelector('[slot="trigger"]').click();
-            await waitForTransitionEnd(element);
+            await waitForTransitionEnd(element, true);
           });
 
           it('should open the dialog', () => {
@@ -78,7 +78,7 @@ describe('@fcarrascosa/dialog element', () => {
         describe('when backdrop is clicked', () => {
           beforeEach(async () => {
             element.shadowRoot.querySelector('.dialog-backdrop').click();
-            await waitForTransitionEnd(element);
+            await waitForTransitionEnd(element, true);
           });
 
           it('should focus the trigger', () => {

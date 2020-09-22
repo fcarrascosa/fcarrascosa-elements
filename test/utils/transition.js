@@ -43,7 +43,7 @@ export const parseTransitionTime = time => {
   return unit === 's' ? value * 1000 : value;
 };
 
-export const waitForTransitionEnd = async el => {
+export const waitForTransitionEnd = async (el, dispatchEvents = false) => {
   const elementTransitions = getElementAndChildrenTransitionProps(el);
   const timeToTransition = elementTransitions.reduce((prev, curr) => {
     const transitionTotalDuration =
@@ -52,5 +52,21 @@ export const waitForTransitionEnd = async el => {
     return transitionTotalDuration > prev ? transitionTotalDuration : prev;
   }, 0);
 
-  return new Promise(resolve => setTimeout(resolve, timeToTransition + 100)); // add 100ms extra delay to ensure transition is actually ended
+  return new Promise(resolve =>
+    setTimeout(() => {
+      if (dispatchEvents) {
+        elementTransitions.forEach(({ transitionProperty }) => {
+          const transitionableProperties = transitionProperty
+            .split(',')
+            .map(property => property.trim());
+          transitionableProperties.forEach(propertyName => {
+            el.dispatchEvent(
+              new TransitionEvent('transitionend', { propertyName })
+            );
+          });
+        });
+      }
+      resolve();
+    }, timeToTransition + 100)
+  ); // add 100ms extra delay to ensure transition is actually ended
 };
