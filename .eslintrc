@@ -13,7 +13,6 @@
   ],
   "plugins": ["sort-keys-fix"],
   "rules": {
-    "sort-imports": ["warn"],
     "sort-keys-fix/sort-keys-fix": "warn"
   }
 }
