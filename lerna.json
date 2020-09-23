@@ -3,9 +3,7 @@
   "version": "independent",
   "command": {
     "version": {
-      "changelogPreset": {
-        "name": "conventional-commits"
-      }
+      "conventional-commits": true
     }
   }
 }
