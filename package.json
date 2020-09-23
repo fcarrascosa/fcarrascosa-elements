@@ -31,7 +31,7 @@
     "test:watch": "karma start --auto-watch --no-single-run",
     "storybook": "start-storybook",
     "storybook:build": "build-storybook -o docs",
-    "lerna:version": "lerna version"
+    "lerna:publish": "lerna publish"
   },
   "husky": {
     "hooks": {
