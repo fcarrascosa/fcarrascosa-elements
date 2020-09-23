@@ -1,4 +1,13 @@
 {
   "packages": ["packages/*"],
-  "version": "independent"
+  "version": "independent",
+  "command": {
+    "version": {
+      "allowBranch": "release",
+      "conventionalCommits": true,
+      "message": "chore(release): release new version for components",
+      "yes": true
+    }
+  },
+  "ignoreChanges": ["**/test/**", "**/stories/**", "**/*.md"]
 }

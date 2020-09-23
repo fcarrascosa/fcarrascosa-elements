@@ -4,6 +4,7 @@
 # NPM Stuff
 node_modules/
 npm-debug.log
+.npmrc
 
 # TESTING Stuff
 coverage

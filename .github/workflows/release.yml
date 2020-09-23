@@ -1,0 +1,42 @@
+name: Release - Publish
+on:
+  push:
+    branches: release
+jobs:
+  build:
+    if: "!contains(github.event.head_commit.message, 'chore(release): release new version for components')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Install Project Dependencies
+        run: npm ci
+      - name: Generate new versions
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "CI/CD: GitHub Action"
+          echo //registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN} > .npmrc
+          npm run lerna:publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+      - name: Create Pull Request to main branch
+        id: createPullRequest
+        uses: peter-evans/create-pull-request@v3
+        with:
+          base: main
+          branch: release
+          labels: |
+            release
+            automated
+          title: 'chore(release): release new version for components'
+          body: 'Releasing new version for fcarrascosa/elements'
+          assignees: fcarrascosa
+          reviewers: fcarrascosa
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+      - name: Show Pull Request information
+        run: |
+          echo "Pull Request ${{ steps.createPullRequest.outputs.pull-request-number }} has been created"
+          echo "You can review it at ${{ steps.createPullRequest.outputs.pull-request-url }}"

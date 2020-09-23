@@ -6,8 +6,6 @@ export default {
 };
 ```
 
-:warning: :construction: _NOTE_: This component is not published yet, so the steps regarding the installation are of no value for the moment.
-
 ## Description
 
 `fcarrascosa-dialog` is a component which allows you to put almost any component in a way that a modal window will appear.

@@ -1,0 +1,28 @@
+name: Release - Create
+on:
+  push:
+    branches: main
+jobs:
+  build:
+    if: "!contains(github.event.head_commit.message, 'chore(release): release new version for components')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_PERSONAL_TOKEN }}
+      - name: Use node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Install Project Dependencies
+        run: npm ci
+      - name: Run Linter
+        run: npm run lint
+      - name: Execute Test For Project
+        run: npm run test
+      - name: Publish to release branch
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GH_PERSONAL_TOKEN }}
+          branch: release
