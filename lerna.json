@@ -3,7 +3,13 @@
   "version": "independent",
   "command": {
     "version": {
-      "conventional-commits": true
+      "conventionalCommits": true,
+      "message": "chore(release): %s"
     }
-  }
+  },
+  "ignoreChanges": [
+    "**/test/**",
+    "**/stories/**",
+    "**/*.md"
+  ]
 }
