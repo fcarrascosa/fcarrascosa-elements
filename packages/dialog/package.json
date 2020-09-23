@@ -6,13 +6,9 @@
   "homepage": "https://github.com/fcarrascosa/fcarrascosa-elements#readme",
   "license": "ISC",
   "main": "index.js",
-  "directories": {
-    "src": "src",
-    "test": "test",
-    "demo": "stories"
-  },
   "files": [
     "*.js",
+    "*.md",
     "src",
     "stories"
   ],
@@ -21,7 +17,8 @@
     "url": "git+https://github.com/fcarrascosa/fcarrascosa-elements.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "cd ../.. && npm run test -- --grep \"packages/dialog/test/**/*.spec.js\"",
+    "test:watch": "cd ../.. && npm run test:watch -- --grep \"packages/dialog/test/**/*.spec.js\""
   },
   "bugs": {
     "url": "https://github.com/fcarrascosa/fcarrascosa-elements/issues"
