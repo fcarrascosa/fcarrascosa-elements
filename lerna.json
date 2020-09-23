@@ -9,9 +9,5 @@
       "yes": true
     }
   },
-  "ignoreChanges": [
-    "**/test/**",
-    "**/stories/**",
-    "**/*.md"
-  ]
+  "ignoreChanges": ["**/test/**", "**/stories/**", "**/*.md"]
 }

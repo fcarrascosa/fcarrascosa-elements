@@ -18,21 +18,21 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
       - name: Create Pull Request to main branch
-          id: createPullRequest
-          uses: peter-evans/create-pull-request@v3
-            with:
-              base: main
-              branch: release
-              labels: |
-                release
-                automated
-              title: 'chore(release): release new version for components'
-              body: 'Releasing new version for fcarrascosa/elements'
-              assignees: fcarrascosa
-              reviewers: fcarrascosa
-              delete-branch: true
-              author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+        id: createPullRequest
+        uses: peter-evans/create-pull-request@v3
+        with:
+          base: main
+          branch: release
+          labels: |
+            release
+            automated
+          title: 'chore(release): release new version for components'
+          body: 'Releasing new version for fcarrascosa/elements'
+          assignees: fcarrascosa
+          reviewers: fcarrascosa
+          delete-branch: true
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
       - name: Show Pull Request information
-          run: |
-            echo "Pull Request ${{ steps.createPullRequest.outputs.pull-request-number }} has been created"
-            echo "You can review it at ${{ steps.createPullRequest.outputs.pull-request-url }}"
+        run: |
+          echo "Pull Request ${{ steps.createPullRequest.outputs.pull-request-number }} has been created"
+          echo "You can review it at ${{ steps.createPullRequest.outputs.pull-request-url }}"
