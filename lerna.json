@@ -1,4 +1,11 @@
 {
   "packages": ["packages/*"],
-  "version": "independent"
+  "version": "independent",
+  "command": {
+    "version": {
+      "changelogPreset": {
+        "name": "conventional-commits"
+      }
+    }
+  }
 }
