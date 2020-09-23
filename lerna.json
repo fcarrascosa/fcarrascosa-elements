@@ -3,8 +3,10 @@
   "version": "independent",
   "command": {
     "version": {
+      "allowBranch": "release/*",
       "conventionalCommits": true,
-      "message": "chore(release): %s"
+      "message": "chore(release): release new version for components",
+      "yes": true
     }
   },
   "ignoreChanges": [
