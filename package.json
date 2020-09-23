@@ -10,10 +10,12 @@
     "eslint": "^7.9.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-sort-keys-fix": "^1.1.1",
+    "husky": "^4.3.0",
     "karma-chai": "^0.1.0",
     "karma-chai-dom": "^1.1.0",
     "karma-sinon-chai": "^2.0.2",
     "lerna": "^3.22.1",
+    "lint-staged": "^10.4.0",
     "prettier": "^2.1.2",
     "sinon": "^9.0.3"
   },
@@ -30,5 +32,19 @@
     "storybook": "start-storybook",
     "storybook:build": "build-storybook -o docs",
     "lerna:version": "lerna version --conventional-commits"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{md,json}": [
+      "prettier --write"
+    ]
   }
 }
