@@ -36,7 +36,7 @@ jobs:
           body: 'Releasing new version for fcarrascosa/elements'
           assignees: fcarrascosa
           reviewers: fcarrascosa
-          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          token: ${secrets.GH_PERSONAL_TOKEN}
       - name: Show Pull Request information
         run: |
           echo "Pull Request ${{ steps.createPullRequest.outputs.pull-request-number }} has been created"
