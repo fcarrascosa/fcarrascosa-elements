@@ -21,7 +21,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "CI/CD: GitHub Action"
-          git remote -v
+          git tag -l
           echo //registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN} > .npmrc
           npx lerna updated
           #npx lerna publish from-git
