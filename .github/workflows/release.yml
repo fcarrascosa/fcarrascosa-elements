@@ -19,8 +19,8 @@ jobs:
         run: npm ci
       - name: Generate new versions
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "CI/CD: GitHub Action"
+          git config --global user.email "action@github.com"
+          git config --global user.name "CI/CD: GitHub Action"
           git tag -l
           echo //registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN} > .npmrc
           npx lerna updated
