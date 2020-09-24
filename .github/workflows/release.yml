@@ -23,7 +23,7 @@ jobs:
           git config --local user.name "CI/CD: GitHub Action"
           git remote set-url origin https://$GITHUB_ACTOR:$GH_TOKEN@github.com/fcarrascosa/fcarrascosa-elements
           echo //registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN} > .npmrc
-          npx lerna version
+          npx lerna updated
           npx lerna publish --from-git
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
