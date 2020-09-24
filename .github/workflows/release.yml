@@ -25,6 +25,9 @@ jobs:
           npm run lerna:publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+      - uses: actions/checkout@v2
+        with:
+          ref: main
       - name: Create Pull Request to main branch
         id: createPullRequest
         uses: peter-evans/create-pull-request@v3
