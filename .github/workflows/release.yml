@@ -29,20 +29,11 @@ jobs:
         with:
           ref: main
       - name: Create Pull Request to main branch
-        id: createPullRequest
-        uses: peter-evans/create-pull-request@v3
+        uses: repo-sync/pull-request@v2
         with:
-          labels: |
-            release
-            automated
-          title: 'chore(release): release new version for components'
-          body: 'Releasing new version for fcarrascosa/elements'
-          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-          assignees: fcarrascosa
-          reviewers: fcarrascosa
-          branch: release
-          draft: false
-      - name: Show Pull Request information
-        run: |
-          echo "Pull Request ${{ steps.createPullRequest.outputs.pull-request-number }} has been created"
-          echo "You can review it at ${{ steps.createPullRequest.outputs.pull-request-url }}"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          destination_branch: main
+          pr_reviewer: fcarrascosa
+          pr_assignee: fcarrascosa
+          pr_label: release,automatic
+          pr_draft: false
