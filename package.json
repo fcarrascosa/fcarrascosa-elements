@@ -35,6 +35,7 @@
     "lerna:publish": "lerna publish from-git"
   },
   "husky": {
+    "skipCI": false,
     "hooks": {
       "pre-commit": "lint-staged"
     }
