@@ -29,8 +29,7 @@ jobs:
         id: createPullRequest
         uses: peter-evans/create-pull-request@v3
         with:
-          base: release
-          branch: main
+          branch: release
           labels: |
             release
             automated
