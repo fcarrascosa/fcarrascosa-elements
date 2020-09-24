@@ -8,25 +8,34 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-      - name: Use node.js 12.x
+      - name: Install node.js 12.x
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - name: Install Project Dependencies
-        run: npm ci
-      - name: Generate new versions
+      - name: Configure CI Git User
         run: |
-          git config --global user.email "action@github.com"
-          git config --global user.name "CI/CD: GitHub Action"
-          git tag -l
+          git config --global user.name ''
+          git config --global user.email 'bennypowers@users.noreply.github.com'
+          git remote set-url origin https://$GITHUB_ACTOR:$GH_TOKEN@github.com/fcarrascosa/fcarrascosa-elements
+        env:
+          GH_TOKEN: ${{ secrets.GH_PERSONAL_TOKEN }}
+      - name: Checkout and pull branch
+        run: git checkout "${GITHUB_REF:11}" && git pull
+      - name: Install packages
+        run: npm ci
+      - name: Authenticate with Registry
+        run: |
           echo //registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN} > .npmrc
+          npm whoami
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+      - name: Publish package
+        run: |
           npx lerna updated
           #npx lerna publish from-git
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PERSONAL_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_PERSONAL_TOKEN }}
       - name: Create Pull Request to main branch
         uses: repo-sync/pull-request@v2
