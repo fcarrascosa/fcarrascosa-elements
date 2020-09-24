@@ -39,7 +39,7 @@ jobs:
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           assignees: fcarrascosa
           reviewers: fcarrascosa
-          token: ${secrets.GH_PERSONAL_TOKEN}
+          draft: false
       - name: Show Pull Request information
         run: |
           echo "Pull Request ${{ steps.createPullRequest.outputs.pull-request-number }} has been created"
