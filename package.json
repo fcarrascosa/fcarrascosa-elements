@@ -22,10 +22,10 @@
   "scripts": {
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint .",
-    "lint:prettier": "prettier . --check --ignore-path .gitignore",
+    "lint:prettier": "prettier . --check --ignore-path .eslintignore",
     "format": "npm run format:eslint && npm run format:prettier",
     "format:eslint": "npm run lint:eslint -- --fix",
-    "format:prettier": "prettier . --write --ignore-path .gitignore",
+    "format:prettier": "prettier . --write --ignore-path .eslintignore",
     "postinstall": "lerna bootstrap",
     "test": "karma start",
     "test:watch": "karma start --auto-watch --no-single-run",
@@ -43,10 +43,10 @@
   "lint-staged": {
     "*.js": [
       "eslint --fix",
-      "prettier --write"
+      "prettier --write --ignore-path .eslintignore"
     ],
     "*.{md,json,yaml,yml}": [
-      "prettier --write"
+      "prettier --write --ignore-path .eslintignore"
     ]
   }
 }
