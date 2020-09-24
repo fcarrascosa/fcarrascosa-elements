@@ -10,10 +10,5 @@
       "createRelease": true
     }
   },
-  "ignoreChanges": [
-    "**/test/**",
-    "**/stories/**",
-    "**/*.md",
-    "**/package-lock.json"
-  ]
+  "ignoreChanges": ["**/test/**", "**/stories/**", "**/*.md", "**/*.json"]
 }
