@@ -20,11 +20,13 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "CI/CD: GitHub Action"
+          git remote set-url origin https://$GITHUB_ACTOR:$GH_TOKEN@github.com/bennypowers/apollo-elements
           echo //registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN} > .npmrc
           npm run lerna:version
           npm run lerna:publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PERSONAL_TOKEN }}
       - name: Create Pull Request to main branch
         uses: repo-sync/pull-request@v2
         with:
