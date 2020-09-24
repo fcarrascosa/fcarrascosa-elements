@@ -36,6 +36,7 @@ jobs:
             automated
           title: 'chore(release): release new version for components'
           body: 'Releasing new version for fcarrascosa/elements'
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           assignees: fcarrascosa
           reviewers: fcarrascosa
           token: ${secrets.GH_PERSONAL_TOKEN}
