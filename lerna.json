@@ -7,6 +7,12 @@
       "conventionalCommits": true,
       "message": "chore(release): release new version for components",
       "yes": true
+    },
+    "publish": {
+      "allowBranch": "release",
+      "conventionalCommits": true,
+      "message": "chore(release): release new version for components",
+      "yes": true
     }
   },
   "ignoreChanges": ["**/test/**", "**/stories/**", "**/*.md"]
