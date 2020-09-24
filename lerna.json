@@ -6,8 +6,14 @@
       "allowBranch": "release",
       "conventionalCommits": true,
       "message": "chore(release): release new version for components",
-      "yes": true
+      "yes": true,
+      "createRelease": true,
+      "ignoreChanges": [
+        "**/test/**",
+        "**/stories/**",
+        "**/*.md",
+        "**/package-lock.json"
+      ]
     }
-  },
-  "ignoreChanges": ["**/test/**", "**/stories/**", "**/*.md"]
+  }
 }
