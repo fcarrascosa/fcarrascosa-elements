@@ -20,7 +20,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "CI/CD: GitHub Action"
-          git remote set-url origin https://$GITHUB_ACTOR:$GH_TOKEN@github.com/bennypowers/apollo-elements
+          git remote set-url origin https://$GITHUB_ACTOR:$GH_TOKEN@github.com/fcarrascosa/fcarrascosa-elements
           echo //registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN} > .npmrc
           npm run lerna:version
           npm run lerna:publish
