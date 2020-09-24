@@ -25,21 +25,15 @@ jobs:
           npm run lerna:publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
-      - name: Create Pull Request to main branch
-        id: createPullRequest
-        uses: peter-evans/create-pull-request@v3
+      - uses: actions/checkout@v2
         with:
-          base: main
-          branch: release
-          labels: |
-            release
-            automated
-          title: 'chore(release): release new version for components'
-          body: 'Releasing new version for fcarrascosa/elements'
-          assignees: fcarrascosa
-          reviewers: fcarrascosa
-          token: ${secrets.GH_PERSONAL_TOKEN}
-      - name: Show Pull Request information
-        run: |
-          echo "Pull Request ${{ steps.createPullRequest.outputs.pull-request-number }} has been created"
-          echo "You can review it at ${{ steps.createPullRequest.outputs.pull-request-url }}"
+          ref: main
+      - name: Create Pull Request to main branch
+        uses: repo-sync/pull-request@v2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          destination_branch: main
+          pr_reviewer: fcarrascosa
+          pr_assignee: fcarrascosa
+          pr_label: release,automatic
+          pr_draft: false
