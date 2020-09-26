@@ -6,6 +6,7 @@
     "@open-wc/eslint-config": "^3.0.0",
     "@open-wc/testing": "^2.5.26",
     "@open-wc/testing-karma": "^4.0.5",
+    "conventional-changelog-conventionalcommits": "^4.4.0",
     "deepmerge": "^4.2.2",
     "eslint": "^7.9.0",
     "eslint-config-prettier": "^6.11.0",
