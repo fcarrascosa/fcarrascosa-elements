@@ -5,6 +5,7 @@
     "version": {
       "allowBranch": "main",
       "conventionalCommits": true,
+      "changelogPreset": "conventionalcommits",
       "message": "chore(release): release new versions for components",
       "yes": true,
       "createRelease": "github"
