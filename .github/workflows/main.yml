@@ -1,0 +1,93 @@
+name: CI
+on:
+  push:
+  pull_request:
+jobs:
+  verify:
+    name: Verifying Linting and Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Git Config
+        run: |
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
+          echo //registry.npmjs.org/:_authToken=${{ env.NPM_TOKEN }} >> .npmrc
+      - name: Installing NodeJS v12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Checkout into Project
+        uses: actions/checkout@v2
+      - name: Install Project Dependencies
+        run: npm ci
+      - name: Run Linter
+        run: npm run lint
+      - name: Unit Tests
+        run: npm run test
+      - name: Store Test Result and Coverage Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Coverage Report
+          path: coverage/**/*.*
+  release_and_deploy:
+    name: Generating New Release and Publishing to NPM
+    needs: verify
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Git Config
+        run: |
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
+      - name: Installing NodeJS v12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Checkout into Project
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - run: git rev-parse --abbrev-ref HEAD
+      - name: Install Project Dependencies
+        run: npm ci
+      - name: Check modified packages
+        run: npm run lerna:updated || echo "No updted packages"
+      - name: Create new versions based on packages changes
+        if: "github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'chore(release): release new versions for components')"
+        run: GH_TOKEN=${{ env.GH_TOKEN }} npm run lerna:version
+      - name: Release new versions to NPM
+        if: "github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'chore(release): release new versions for components')"
+        run: npm run lerna:publish
+    env:
+      GH_TOKEN: ${{ secrets.GH_PERSONAL_TOKEN }}
+      NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+  publish_demo:
+    name: Generating and Publishing to Demo Branch
+    needs: verify
+    runs-on: ubuntu-latest
+    steps:
+      - name: Installing NodeJS v12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Checkout into Project
+        uses: actions/checkout@v2
+      - name: Install Project Dependencies
+        run: npm ci
+      - name: Generate Storybook Demo
+        run: npm run storybook:build
+      - name: Store Storybook Demo
+        uses: actions/upload-artifact@v2
+        with:
+          name: Storybook
+          path: docs/**/*.*
+      - name: Publish github-pages branch
+        if: ${{ success() && github.ref == 'refs/heads/main' }}
+        uses: JamesIves/github-pages-deploy-action@3.6.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: demo
+          FOLDER: docs
+          CLEAN: true
+          GIT_CONFIG_NAME: github-actions
+          GIT_CONFIG_EMAIL: github-actions@github.com
+          SINGLE_COMMIT: true
