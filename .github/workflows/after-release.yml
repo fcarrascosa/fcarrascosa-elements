@@ -1,7 +1,8 @@
 name: Inform New Release
 on:
-  push:
-    branches: 'refs/tags/*'
+  release:
+    types:
+      - created
 jobs:
   tweet:
     runs-on: ubuntu-latest
