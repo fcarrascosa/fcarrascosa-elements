@@ -5,7 +5,10 @@
     "version": {
       "allowBranch": "main",
       "conventionalCommits": true,
-      "changelogPreset": "conventionalcommits",
+      "changelogPreset": {
+        "name": "conventionalcommits",
+        "issueUrlFormat": "{{host}}/{{owner}}/{{repository}}/issues/{{id}}"
+      },
       "message": "chore(release): release new versions for components",
       "yes": true,
       "createRelease": "github"
