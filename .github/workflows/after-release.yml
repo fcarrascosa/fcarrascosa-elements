@@ -1,0 +1,23 @@
+name: Inform New Release
+on:
+  push:
+    branches: 'refs/tags/*'
+jobs:
+  tweet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Tag Name
+        uses: olegtarasov/get-tag@v2
+        id: getTagName
+      - name: Tweeting new Release
+        uses: ethomson/send-tweet-action@v1
+        with:
+          status: |
+            Hey! I just published ${{ env.TAG_NAME }}. You can check the demo/docs here:
+            https://fcarrascosa.github.io/fcarrascosa-elements/
+          consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
+          consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
+          access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+        env:
+          TAG_NAME: ${{ steps.getTagName.outputs.tag }}
