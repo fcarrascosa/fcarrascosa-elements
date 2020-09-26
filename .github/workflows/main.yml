@@ -37,7 +37,6 @@ jobs:
         run: |
           git config --global user.name github-actions
           git config --global user.email github-actions@github.com
-          echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" > .npmrc
       - name: Installing NodeJS v12
         uses: actions/setup-node@v1
         with:
@@ -54,6 +53,9 @@ jobs:
       - name: Create new versions based on packages changes
         if: "github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'chore(release): release new versions for components')"
         run: GH_TOKEN=${{ env.GH_TOKEN }} npm run lerna:version
+      - name: Update .npmrc with auth token
+        if: "github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'chore(release): release new versions for components')"
+        run: echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" > .npmrc
       - name: Release new versions to NPM
         if: "github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'chore(release): release new versions for components')"
         run: npm run lerna:publish
