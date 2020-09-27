@@ -1,0 +1,30 @@
+{
+  "name": "@fcarrascosa/testing",
+  "version": "0.0.0",
+  "description": "A set of utils to use while testing on a runner",
+  "author": "Fernando Carrascosa <fcarrascosa@fcarrascosa.es>",
+  "homepage": "https://github.com/fcarrascosa/fcarrascosa-elements#readme",
+  "license": "ISC",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fcarrascosa/fcarrascosa-elements.git"
+  },
+  "scripts": {
+    "test": "cd ../.. && npm run test -- --grep \"packages/testing/test/**/*.spec.js\"",
+    "test:watch": "cd ../.. && npm run test:watch -- --grep \"packages/testing/test/**/*.spec.js\""
+  },
+  "bugs": {
+    "url": "https://github.com/fcarrascosa/fcarrascosa-elements/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
