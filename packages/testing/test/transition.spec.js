@@ -1,6 +1,7 @@
 import {
   parseTransitionTime,
   getElementChildNodes,
+  getElementTransitionProps,
 } from '../src/transition.js';
 
 describe('Transition Utils', () => {
@@ -215,5 +216,94 @@ describe('Transition Utils', () => {
     });
   });
 
-  describe('getElementTransitionProps', () => {});
+  describe('getElementTransitionProps', () => {
+    let element;
+    beforeEach(() => {
+      element = document.createElement('div');
+      document.body.appendChild(element);
+    });
+
+    afterEach(() => {
+      document.body.removeChild(element);
+    });
+
+    describe('when element does not have any transitions', () => {
+      it('should return the empty transition object', () => {
+        const emptyTransitions = {
+          transition: 'all 0s ease 0s',
+          transitionDelay: '0s',
+          transitionDuration: '0s',
+          transitionProperty: 'all',
+          transitionTimingFunction: 'ease',
+        };
+
+        expect(getElementTransitionProps(element)).to.deep.equal(
+          emptyTransitions
+        );
+      });
+    });
+
+    describe('when element has transitions', () => {
+      describe('for all properties', () => {
+        beforeEach(() => {
+          element.style.transition = 'all 500ms ease-in-out 5ms';
+        });
+
+        it('should return the right transition object', () => {
+          const expectedTransitions = {
+            transition: 'all 0.5s ease-in-out 0.005s',
+            transitionDelay: '0.005s',
+            transitionDuration: '0.5s',
+            transitionProperty: 'all',
+            transitionTimingFunction: 'ease-in-out',
+          };
+
+          expect(getElementTransitionProps(element)).to.deep.equal(
+            expectedTransitions
+          );
+        });
+      });
+
+      describe('for a single property', () => {
+        beforeEach(() => {
+          element.style.transition = 'visibility 500ms ease-in-out';
+        });
+
+        it('should return the right transition object', () => {
+          const expectedTransitions = {
+            transition: 'visibility 0.5s ease-in-out 0s',
+            transitionDelay: '0s',
+            transitionDuration: '0.5s',
+            transitionProperty: 'visibility',
+            transitionTimingFunction: 'ease-in-out',
+          };
+
+          expect(getElementTransitionProps(element)).to.deep.equal(
+            expectedTransitions
+          );
+        });
+      });
+
+      describe('for more than one property', () => {
+        beforeEach(() => {
+          element.style.transition =
+            'visibility 500ms ease-in-out, border .3s ease 100ms';
+        });
+
+        it('should return the right transition object', () => {
+          const expectedTransitions = {
+            transition: 'visibility 0.5s ease-in-out 0s, border 0.3s ease 0.1s',
+            transitionDelay: '0s, 0.1s',
+            transitionDuration: '0.5s, 0.3s',
+            transitionProperty: 'visibility, border',
+            transitionTimingFunction: 'ease-in-out, ease',
+          };
+
+          expect(getElementTransitionProps(element)).to.deep.equal(
+            expectedTransitions
+          );
+        });
+      });
+    });
+  });
 });
