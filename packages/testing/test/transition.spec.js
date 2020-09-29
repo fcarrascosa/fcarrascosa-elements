@@ -6,8 +6,6 @@ import {
   getElementAndChildrenTransitionProps,
 } from '../src/transition.js';
 
-import * as transitionTestUtil from '../src/transition.js';
-
 describe('Transition Utils', () => {
   describe('parseTransitionTime', () => {
     it('should return value times 1000 without units if input is in seconds', () => {
@@ -388,12 +386,7 @@ describe('Transition Utils', () => {
     describe('dispatchEvents false', () => {
       describe('when element has no children', () => {
         describe('when element has no transition', () => {
-          it('should execute imediately', () => {
-            sandbox
-              .stub(transitionTestUtil, 'getElementChildNodes')
-              .returns([]);
-            expect(true).to.be.true;
-          });
+          it('should execute imediately', () => {});
         });
       });
 
