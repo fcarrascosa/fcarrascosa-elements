@@ -1,9 +1,12 @@
+import { createSandbox } from 'sinon';
 import {
   parseTransitionTime,
   getElementChildNodes,
   getElementTransitionProps,
   getElementAndChildrenTransitionProps,
 } from '../src/transition.js';
+
+import * as transitionTestUtil from '../src/transition.js';
 
 describe('Transition Utils', () => {
   describe('parseTransitionTime', () => {
@@ -369,20 +372,28 @@ describe('Transition Utils', () => {
 
   describe('waitForTransitionEnd', () => {
     let element;
+    let sandbox;
 
     beforeEach(() => {
       element = document.createElement('div');
       document.body.appendChild(element);
+      sandbox = createSandbox();
     });
 
     afterEach(() => {
       document.body.removeChild(element);
+      sandbox.restore();
     });
 
     describe('dispatchEvents false', () => {
       describe('when element has no children', () => {
         describe('when element has no transition', () => {
-          it('should execute imediately', () => {});
+          it('should execute imediately', () => {
+            sandbox
+              .stub(transitionTestUtil, 'getElementChildNodes')
+              .returns([]);
+            expect(true).to.be.true;
+          });
         });
       });
 
