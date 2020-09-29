@@ -4,6 +4,7 @@ import {
   getElementChildNodes,
   getElementTransitionProps,
   getElementAndChildrenTransitionProps,
+  waitForTransitionEnd,
 } from '../src/transition.js';
 
 describe('Transition Utils', () => {
@@ -370,37 +371,141 @@ describe('Transition Utils', () => {
 
   describe('waitForTransitionEnd', () => {
     let element;
-    let sandbox;
 
     beforeEach(() => {
       element = document.createElement('div');
       document.body.appendChild(element);
-      sandbox = createSandbox();
     });
 
     afterEach(() => {
       document.body.removeChild(element);
-      sandbox.restore();
     });
 
     describe('dispatchEvents false', () => {
       describe('when element has no children', () => {
         describe('when element has no transition', () => {
-          it('should execute imediately', () => {});
+          it('should execute in about 100ms (<110ms)', async () => {
+            const start = performance.now();
+            await waitForTransitionEnd(element);
+            const time = performance.now() - start;
+            expect(time < 110).to.be.true;
+          });
+        });
+
+        describe('when element has transition with no delay', () => {
+          beforeEach(() => {
+            element.style.transition = 'all .1s ease-in-out';
+          });
+
+          it('should execute in about the time of the transition plus 100ms (<210ms)', async () => {
+            const start = performance.now();
+            await waitForTransitionEnd(element);
+            const time = performance.now() - start;
+            expect(time < 110).to.not.be.true;
+            expect(time < 210).to.be.true;
+          });
+        });
+
+        describe('when element has transition with delay', () => {
+          beforeEach(() => {
+            element.style.transition = 'all .1s ease-in-out .1s';
+          });
+
+          it('should execute in about the time of the transition plus transitiondelay plus 100ms (<210ms)', async () => {
+            const start = performance.now();
+            await waitForTransitionEnd(element);
+            const time = performance.now() - start;
+            expect(time < 210).to.not.be.true;
+            expect(time < 310).to.be.true;
+          });
         });
       });
 
-      describe('when element has lightChildren', () => {});
+      describe('when element has lightChildren', () => {
+        let lightChild;
+        beforeEach(() => {
+          lightChild = document.createElement('div');
+          element.appendChild(lightChild);
+        });
+        describe('with transitionTimes higher than its transition', () => {
+          beforeEach(() => {
+            lightChild.style.transition = 'all .1s ease';
+          });
 
-      describe('when element has shadowChildren', () => {});
+          it('should execute in about the time of the transition of the child plus 100ms (<210ms)', async () => {
+            const start = performance.now();
+            await waitForTransitionEnd(element);
+            const time = performance.now() - start;
+            expect(time < 110).to.not.be.true;
+            expect(time < 210).to.be.true;
+          });
+        });
+
+        describe('with transitionTimes lower than its transition', () => {
+          beforeEach(() => {
+            element.style.transition = 'all .1s ease';
+          });
+
+          it('should execute in about the time of the transition of the element plus 100ms (<210ms)', async () => {
+            const start = performance.now();
+            await waitForTransitionEnd(element);
+            const time = performance.now() - start;
+            expect(time < 110).to.not.be.true;
+            expect(time < 210).to.be.true;
+          });
+        });
+      });
+
+      describe('when element has shadowChildren', () => {
+        let shadowChild;
+        beforeEach(() => {
+          shadowChild = document.createElement('div');
+          element.attachShadow({ mode: 'open' });
+          element.shadowRoot.appendChild(shadowChild);
+        });
+        describe('with transitionTimes higher than its transition', () => {
+          beforeEach(() => {
+            shadowChild.style.transition = 'all .1s ease';
+          });
+
+          it('should execute in about the time of the transition of the child plus 100ms (<210ms)', async () => {
+            const start = performance.now();
+            await waitForTransitionEnd(element);
+            const time = performance.now() - start;
+            expect(time < 110).to.not.be.true;
+            expect(time < 210).to.be.true;
+          });
+        });
+
+        describe('with transitionTimes lower than its transition', () => {
+          beforeEach(() => {
+            element.style.transition = 'all .1s ease';
+          });
+
+          it('should execute in about the time of the transition of the element plus 100ms (<210ms)', async () => {
+            const start = performance.now();
+            await waitForTransitionEnd(element);
+            const time = performance.now() - start;
+            expect(time < 110).to.not.be.true;
+            expect(time < 210).to.be.true;
+          });
+        });
+      });
     });
 
     describe('dispatchEvents true', () => {
-      describe('when element has no children', () => {});
-
-      describe('when element has lightChildren', () => {});
-
-      describe('when element has shadowChildren', () => {});
+      let sandbox;
+      beforeEach(() => {
+        sandbox = createSandbox();
+      });
+      afterEach(() => {
+        sandbox.restore();
+      });
+      it('should dispatch a transitionEnd event', async () => {
+        sandbox.stub(element, 'dispatchEvent').returns(null);
+        await waitForTransitionEnd(element, true);
+        expect(element.dispatchEvent).to.have.been.calledOnce;
+      });
     });
   });
 });
