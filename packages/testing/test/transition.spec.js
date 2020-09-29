@@ -2,6 +2,7 @@ import {
   parseTransitionTime,
   getElementChildNodes,
   getElementTransitionProps,
+  getElementAndChildrenTransitionProps,
 } from '../src/transition.js';
 
 describe('Transition Utils', () => {
@@ -304,6 +305,98 @@ describe('Transition Utils', () => {
           );
         });
       });
+    });
+  });
+
+  describe('getElementAndChildrenTransitionProps', () => {
+    const emptyTransitions = {
+      transition: 'all 0s ease 0s',
+      transitionDelay: '0s',
+      transitionDuration: '0s',
+      transitionProperty: 'all',
+      transitionTimingFunction: 'ease',
+    };
+    let element;
+
+    beforeEach(() => {
+      element = document.createElement('div');
+      document.body.appendChild(element);
+    });
+
+    afterEach(() => {
+      document.body.removeChild(element);
+    });
+
+    describe('when element has no children', () => {
+      it('should return the element set of transitions', () => {
+        expect(getElementAndChildrenTransitionProps(element)).to.be.deep.equal([
+          emptyTransitions,
+        ]);
+      });
+    });
+
+    describe('when element has lightDom children', () => {
+      let lightChild;
+      beforeEach(() => {
+        lightChild = document.createElement('div');
+        element.appendChild(lightChild);
+      });
+
+      it('should return the element and child set of transitions', () => {
+        expect(getElementAndChildrenTransitionProps(element)).to.be.deep.equal([
+          emptyTransitions,
+          emptyTransitions,
+        ]);
+      });
+    });
+
+    describe('when element has shadowDom children', () => {
+      let shadowChild;
+      beforeEach(() => {
+        shadowChild = document.createElement('div');
+        element.attachShadow({ mode: 'open' });
+        element.shadowRoot.appendChild(shadowChild);
+      });
+
+      it('should return the element and child set of transitions', () => {
+        expect(getElementAndChildrenTransitionProps(element)).to.be.deep.equal([
+          emptyTransitions,
+          emptyTransitions,
+        ]);
+      });
+    });
+  });
+
+  describe('waitForTransitionEnd', () => {
+    let element;
+
+    beforeEach(() => {
+      element = document.createElement('div');
+      document.body.appendChild(element);
+    });
+
+    afterEach(() => {
+      document.body.removeChild(element);
+    });
+
+    describe('dispatchEvents false', () => {
+      describe('when element has no children', () => {
+        describe('when element has no transition', () => {
+          it('should execute imediately', () => {});
+        });
+      });
+
+      describe('when element has lightChildren', () => {});
+
+      describe('when element has shadowChildren', () => {});
+    });
+
+    describe('dispatchEvents true', () => {
+      describe('when element has no children', () => {});
+
+      describe('when element has lightChildren', () => {});
+
+      describe('when element has shadowChildren', () => {});
     });
   });
 });
