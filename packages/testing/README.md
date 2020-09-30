@@ -17,7 +17,7 @@ export default {
 In your project run
 
 ```bash
-npm install @fcarrascosa/dialog -D
+npm install @fcarrascosa/testing -D
 ```
 
 ```js
