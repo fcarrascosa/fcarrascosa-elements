@@ -14,11 +14,13 @@ export class FcarrascosaDialog extends LitElement {
   connectedCallback() {
     super.connectedCallback();
     this.addEventListener('transitionend', this.handleTransitionEnd);
+    this.addEventListener('fc-dialog-close', this.handleDialogClose);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
     this.removeEventListener('transitionend', this.handleTransitionEnd);
+    this.removeEventListener('fc-dialog-close', this.handleDialogClose);
   }
 
   firstUpdated(_changedProperties) {
@@ -62,6 +64,11 @@ export class FcarrascosaDialog extends LitElement {
       const slottedTrigger = this.querySelector('[slot="trigger"]');
       (this.open ? slottedContent : slottedTrigger).focus();
     }
+  }
+
+  handleDialogClose(e) {
+    e.stopPropagation();
+    if (this.open) this.toggleOpen();
   }
 
   toggleOpen() {
