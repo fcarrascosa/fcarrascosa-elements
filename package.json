@@ -2,6 +2,7 @@
   "name": "@fcarrascosa/root",
   "private": true,
   "devDependencies": {
+    "@fcarrascosa/testing": "^0.1.0",
     "@open-wc/demoing-storybook": "^2.4.1",
     "@open-wc/eslint-config": "^3.0.0",
     "@open-wc/testing": "^2.5.26",
