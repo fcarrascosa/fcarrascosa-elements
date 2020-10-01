@@ -60,7 +60,7 @@ jobs:
         if: "github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'chore(release): release new versions for components')"
         run: npm run lerna:publish
       - name: Create new Develop Branch
-        if: "github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, 'chore(release): release new versions for components"
+        if: "github.ref == 'refs/heads/main'"
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GH_PERSONAL_TOKEN }}
