@@ -1,6 +1,6 @@
 {
   "name": "@fcarrascosa/testing",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A set of utils to use while testing on a runner",
   "author": "Fernando Carrascosa <fcarrascosa@fcarrascosa.es>",
   "homepage": "https://github.com/fcarrascosa/fcarrascosa-elements#readme",
