@@ -24,6 +24,7 @@
     "url": "https://github.com/fcarrascosa/fcarrascosa-elements/issues"
   },
   "dependencies": {
+    "@fcarrascosa/testing": "^0.0.0",
     "lit-element": "^2.4.0"
   },
   "publishConfig": {

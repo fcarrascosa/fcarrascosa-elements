@@ -1,8 +1,8 @@
 import '../fcarrascosa-dialog.js';
 import { createSandbox } from 'sinon';
 import { fixture, html } from '@open-wc/testing';
+import { waitForTransitionEnd } from '@fcarrascosa/testing';
 import { FcarrascosaDialog } from '../src/FcarrascosaDialog.js';
-import { waitForTransitionEnd } from '../../../test/utils/transition.js';
 
 describe('@fcarrascosa/dialog element', () => {
   let element;
@@ -37,14 +37,12 @@ describe('@fcarrascosa/dialog element', () => {
 
         describe('when fc-dialog-close event is fired', () => {
           beforeEach(() => {
-            element
-              .querySelector('[slot="content"]')
-              .dispatchEvent(
-                new CustomEvent('fc-dialog-close', {
-                  bubbles: true,
-                  composed: true,
-                })
-              );
+            element.querySelector('[slot="content"]').dispatchEvent(
+              new CustomEvent('fc-dialog-close', {
+                bubbles: true,
+                composed: true,
+              })
+            );
           });
 
           it('should not open the dialog', () => {
@@ -94,14 +92,12 @@ describe('@fcarrascosa/dialog element', () => {
 
         describe('when fc-dialog-close event is fired', () => {
           beforeEach(() => {
-            element
-              .querySelector('[slot="content"]')
-              .dispatchEvent(
-                new CustomEvent('fc-dialog-close', {
-                  bubbles: true,
-                  composed: true,
-                })
-              );
+            element.querySelector('[slot="content"]').dispatchEvent(
+              new CustomEvent('fc-dialog-close', {
+                bubbles: true,
+                composed: true,
+              })
+            );
           });
 
           it('should close the dialog', () => {
