@@ -10,6 +10,7 @@ module.exports = {
     'storybook-prebuilt/addon-docs/register.js',
     'storybook-prebuilt/addon-viewport/register.js',
     'storybook-prebuilt/addon-a11y/register.js',
+    'storybook-prebuilt/theming',
   ],
   esDevServer: {
     // custom es-dev-server options
